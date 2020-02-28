@@ -24,19 +24,25 @@ it('Consume GET Service with query parameters', async () => {
   expect(response.body.args).to.eql(query);
 });
 it('Consume PATCH Service with query parameters', async () => {
-  const response = await agent.patch('https://httpbin.org/patch').query(query);
+  const response = await agent.patch('https://httpbin.org/patch').send(query);
   expect(response.status).to.equal(statusCode.OK);
-  expect(response.body.args).to.eql(query);
+  expect(response.body).to.have.a.property('args');
+  expect(response.body).to.have.a.property('origin');
+  expect(response.body).to.have.a.property('url');
 });
 it('Consume PUT Service with query parameters', async () => {
-  const response = await agent.put('https://httpbin.org/put').query(query);
+  const response = await agent.put('https://httpbin.org/put').send(query);
   expect(response.status).to.equal(statusCode.OK);
-  expect(response.body.args).to.eql(query);
+  expect(response.body).to.have.a.property('headers');
+  expect(response.body).to.have.a.property('origin');
+  expect(response.body).to.have.a.property('url');
 });
 it('Consume DELETE Service with query parameters', async () => {
-  const response = await agent.del('https://httpbin.org/delete').query(query);
+  const response = await agent.del('https://httpbin.org/delete').send(query);
   expect(response.status).to.equal(statusCode.OK);
-  expect(response.body.args).to.eql(query);
+  expect(response.body).to.have.a.property('headers');
+  expect(response.body).to.have.a.property('origin');
+  expect(response.body).to.have.a.property('url');
 });
 it('Consume HEAD Service with query parameters', async () => {
   const response = await agent.head('https://httpbin.org/get');
